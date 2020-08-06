@@ -17,7 +17,8 @@ export default class HelloWorld extends Vue {
     return this.self.$api.test();
   }
 
-  thisDoesntWork() {
+  // thisDoesntWork() {
+  thisWorksToo() {
     return this.$api.test();
     /*
       ERROR in /tmp/vue-ts-plugin-issue/src/components/HelloWorld.vue(17,17):
@@ -28,6 +29,20 @@ export default class HelloWorld extends Vue {
          |                 ^
       18 |   }
     */
+    /*
+      THIS IS RIGHT SOLUTION 
+
+      @/myplugin.d.ts
+      
+      import Vue from 'vue'
+      import Api from 'src/plugins/myplugin/api'
+
+      declare module 'vue/types/vue' {
+        interface Vue {
+          $api:  Api
+        }
+      }
+   */
   }
 }
 </script>
